@@ -17,20 +17,43 @@ package com.example.android.sunshine;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.TextView;
+
+import com.example.android.sunshine.data.SunshinePreferences;
+import com.example.android.sunshine.utilities.SunshineDateUtils;
+import com.example.android.sunshine.utilities.SunshineWeatherUtils;
 
 public class MainActivity extends AppCompatActivity {
 
-    // TODO (1) Create a field to store the weather display TextView
+    // COMPLETED(1) Create a field to store the weather display TextView
+    private TextView weatherData;
+    private String [] dummyData;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast);
 
-        // TODO (2) Use findViewById to get a reference to the weather display TextView
+        // COMPLETED (2) Use findViewById to get a reference to the weather display TextView
+        weatherData = (TextView) findViewById( R.id.tv_weather_data );
 
-        // TODO (3) Create an array of Strings that contain fake weather data
+        // COMPLETED (3) Create an array of Strings that contain fake weather data
+        dummyData = new String[] { "Today, May 17 - Clear - 17°C / 15°C",
+                                   "Tomorrow - Cloudy - 19°C / 15°C",
+                                   "Tues - Rainy- 30°C / 11°C",
+                                   "Wed - Thunderstorms - 21°C / 9°C",
+                                   "Thu, May 26 - Stormy - 30°C / 11°C",
+                                   "Fri, May 27 - Hurricane - 21°C / 9°C",
+                                   "Sat, May 28 - Meteors - 16°C / 7°C",
+                                   "Sun, May 29 - Apocalypse - 16°C / 8°C"
+        };
 
-        // TODO (4) Append each String from the fake weather data array to the TextView
+        // COMPLETED (4) Append each String from the fake weather data array to the TextView
+        int i,
+            length = dummyData.length;
+        for (i = 0; i < length; i++){
+            weatherData.append( dummyData[i] + "\n\n" );
+        }// end for(...)
     }
 }
