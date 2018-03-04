@@ -29,7 +29,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <!--COMPLETED (2) Change the TextView's android:id attribute to tv_weather_data-->
         <!--COMPLETED (3) Give the TextView 16dp of padding-->
