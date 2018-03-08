@@ -24,6 +24,7 @@
     <!--COMPLETED (4) Give the TextView a default error message stating that an error occurred (use strings.xml)-->
     <!--COMPLETED (5) Set the default visibility of the TextView to invisible-->
     <TextView
+        android:id="@+id/tv_error_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/error"
@@ -46,6 +47,7 @@
     <!--COMPLETED (14) Set the layout_gravity of the ProgressBar to center-->
     <!--COMPLETED (15) Set the default visibility of the ProgressBar to invisible-->
     <ProgressBar
+        android:id="@+id/progress_loader"
         android:layout_width="42dp"
         android:layout_height="42dp"
         android:layout_gravity="center"
