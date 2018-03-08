@@ -88,6 +88,10 @@ public class MainActivity extends AppCompatActivity {
             try {
                 jsonResponse = NetworkUtils.getResponseFromHttpUrl( urls[0] );
 
+                if( jsonResponse == null ){
+                    return jsonResponse;
+                }// end if
+
                 String [] data =
                         OpenWeatherJsonUtils.getSimpleWeatherStringsFromJson(
                                 MainActivity.this,
