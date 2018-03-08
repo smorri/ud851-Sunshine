@@ -12,13 +12,27 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @author Samone Morris
+ * @date   03/07/2018
  */
 package com.example.android.sunshine.utilities;
+
+import android.net.Uri;
+import android.util.JsonReader;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 /**
@@ -65,9 +79,26 @@ public final class NetworkUtils {
      * @return The URL to use to query the weather server.
      */
     public static URL buildUrl(String locationQuery) {
-        // TODO (1) Fix this method to return the URL used to query Open Weather Map's API
-        return null;
-    }
+        // COMPLETED (1) Fix this method to return the URL used to query Open Weather Map's API
+        URL url = null;
+
+        Uri uri = Uri.parse( FORECAST_BASE_URL ).buildUpon()
+                     .appendQueryParameter( QUERY_PARAM, locationQuery )
+                     .appendQueryParameter( DAYS_PARAM, String.valueOf(numDays) )
+                     .appendQueryParameter( FORMAT_PARAM, format )
+                     .appendQueryParameter( UNITS_PARAM, units )
+                     .build();
+
+        try {
+            url = new URL( uri.toString() );
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }// end try / catch
+
+        Log.i( TAG + ", URL = ", url.toString() );
+
+        return url;
+    }// end buildUrl(...)
 
     /**
      * Builds the URL used to talk to the weather server using latitude and longitude of a
