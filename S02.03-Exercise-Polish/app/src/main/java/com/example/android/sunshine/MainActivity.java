@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
             if (weatherData != null) {
                 // COMPLETED (11) If the weather data was not null, make sure the data view is visible
-                mWeatherTextView.setVisibility( View.VISIBLE );
+                showWeatherDataView();
 
                 /*
                  * Iterate through the array and append the Strings to the TextView. The reason why we add
