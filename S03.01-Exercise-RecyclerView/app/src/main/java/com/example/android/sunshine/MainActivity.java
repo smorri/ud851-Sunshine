@@ -48,27 +48,6 @@ public class MainActivity extends AppCompatActivity {
     // COMPLETED (14) Set the left and right margins to 8dp
     // Within forecast_list_item.xml //////////////////////////////////////////////////////////////
 
-
-    // Within ForecastAdapter.java /////////////////////////////////////////////////////////////////
-    // TODO (15) Add a class file called ForecastAdapter
-    // TODO (22) Extend RecyclerView.Adapter<ForecastAdapter.ForecastAdapterViewHolder>
-
-    // TODO (23) Create a private string array called mWeatherData
-
-    // TODO (47) Create the default constructor (we will pass in parameters in a later lesson)
-
-    // TODO (16) Create a class within ForecastAdapter called ForecastAdapterViewHolder
-    // TODO (17) Extend RecyclerView.ViewHolder
-
-    // Within ForecastAdapterViewHolder ///////////////////////////////////////////////////////////
-    // TODO (18) Create a public final TextView variable called mWeatherTextView
-
-    // TODO (19) Create a constructor for this class that accepts a View as a parameter
-    // TODO (20) Call super(view) within the constructor for ForecastAdapterViewHolder
-    // TODO (21) Using view.findViewById, get a reference to this layout's TextView and save it to mWeatherTextView
-    // Within ForecastAdapterViewHolder ///////////////////////////////////////////////////////////
-
-
     // TODO (24) Override onCreateViewHolder
     // TODO (25) Within onCreateViewHolder, inflate the list item xml into a view
     // TODO (26) Within onCreateViewHolder, return a new ForecastAdapterViewHolder with the above view passed in as a parameter
