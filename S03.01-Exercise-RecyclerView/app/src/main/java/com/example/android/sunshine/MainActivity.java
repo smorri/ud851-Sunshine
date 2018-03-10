@@ -12,12 +12,17 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @author Samone Morris
+ * @date   03/10/2018
  */
 package com.example.android.sunshine;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,7 +37,6 @@ import com.example.android.sunshine.utilities.OpenWeatherJsonUtils;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-
     // Within forecast_list_item.xml //////////////////////////////////////////////////////////////
     // COMPLETED (5) Add a layout for an item in the list called forecast_list_item.xml
     // COMPLETED (6) Make the root of the layout a vertical LinearLayout
@@ -49,12 +53,11 @@ public class MainActivity extends AppCompatActivity {
     // Within forecast_list_item.xml //////////////////////////////////////////////////////////////
 
     // COMPLETED (33) Delete mWeatherTextView
-
-    // TODO (34) Add a private RecyclerView variable called mRecyclerView
-    // TODO (35) Add a private ForecastAdapter variable called mForecastAdapter
-
+    // COMPLETED (34) Add a private RecyclerView variable called mRecyclerView
+    // COMPLETED (35) Add a private ForecastAdapter variable called mForecastAdapter
+    private RecyclerView mRecyclerView;
+    private ForecastAdapter mForecastAdapter;
     private TextView mErrorMessageDisplay;
-
     private ProgressBar mLoadingIndicator;
 
     @Override
@@ -62,27 +65,31 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forecast);
 
-        // TODO (36) Delete the line where you get a reference to mWeatherTextView
-        /*
-         * Using findViewById, we get a reference to our TextView from xml. This allows us to
-         * do things like set the text of the TextView.
-         */
-        mWeatherTextView = (TextView) findViewById(R.id.tv_weather_data);
-
-        // TODO (37) Use findViewById to get a reference to the RecyclerView
+        // COMPLETED (36) Delete the line where you get a reference to mWeatherTextView
+        // COMPLETED (37) Use findViewById to get a reference to the RecyclerView
+        mRecyclerView = (RecyclerView) findViewById( R.id.recyclerview_forecast );
 
         /* This TextView is used to display errors and will be hidden if there are no errors */
         mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_message_display);
 
-        // TODO (38) Create layoutManager, a LinearLayoutManager with VERTICAL orientation and shouldReverseLayout == false
+        // COMPLETED (38) Create layoutManager, a LinearLayoutManager with VERTICAL orientation and shouldReverseLayout == false
+        LinearLayoutManager layoutManager = new LinearLayoutManager(
+                getApplicationContext(),
+                LinearLayoutManager.VERTICAL,
+                false
+        );
 
-        // TODO (39) Set the layoutManager on mRecyclerView
+        // COMPLETED (39) Set the layoutManager on mRecyclerView
+        mRecyclerView.setLayoutManager( layoutManager );
 
-        // TODO (40) Use setHasFixedSize(true) on mRecyclerView to designate that all items in the list will have the same size
+        // COMPLETED (40) Use setHasFixedSize(true) on mRecyclerView to designate that all items in the list will have the same size
+        mRecyclerView.setHasFixedSize( true );
 
-        // TODO (41) set mForecastAdapter equal to a new ForecastAdapter
+        // COMPLETED (41) set mForecastAdapter equal to a new ForecastAdapter
+        mForecastAdapter = new ForecastAdapter();
 
-        // TODO (42) Use mRecyclerView.setAdapter and pass in mForecastAdapter
+        // COMPLETED (42) Use mRecyclerView.setAdapter and pass in mForecastAdapter
+        mRecyclerView.setAdapter( mForecastAdapter );
 
         /*
          * The ProgressBar that will indicate to the user that we are loading data. It will be

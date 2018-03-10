@@ -1,3 +1,11 @@
+/* -------------------------------------------------------------------------------------------------
+ * RecyclerView Adapter Class : Forecast Adapter
+ *
+ * @author Samone Morris
+ * @date   03/10/2018
+ * -------------------------------------------------------------------------------------------------
+ */
+
 package com.example.android.sunshine;
 
 import android.support.v7.widget.RecyclerView;
@@ -6,20 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-/**
- * Created by Samone on 3/10/2018.
- */
-
 // Within ForecastAdapter.java /////////////////////////////////////////////////////////////////
 // COMPLETED (15) Add a class file called ForecastAdapter
 // COMPLETED (22) Extend RecyclerView.Adapter<ForecastAdapter.ForecastAdapterViewHolder>
 
-public class ForecaseAdapter extends RecyclerView.Adapter<ForecaseAdapter.ForecastAdapterViewHolder> {
+public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapterViewHolder> {
     // COMPLETED (23) Create a private string array called mWeatherData
     private String[] mWeatherData;
 
     // COMPLETED (47) Create the default constructor (we will pass in parameters in a later lesson)
-    public ForecaseAdapter(){
+    public ForecastAdapter(){
     }// end constructor ForecastAdapter()
 
     // COMPLETED (24) Override onCreateViewHolder
