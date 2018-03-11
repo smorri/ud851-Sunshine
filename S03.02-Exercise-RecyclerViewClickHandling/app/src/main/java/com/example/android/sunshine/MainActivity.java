@@ -31,11 +31,13 @@ import android.widget.Toast;
 import com.example.android.sunshine.data.SunshinePreferences;
 import com.example.android.sunshine.utilities.NetworkUtils;
 import com.example.android.sunshine.utilities.OpenWeatherJsonUtils;
+import com.example.android.sunshine.ForecastAdapter.ForecastAdapterOnClickHandler;
 
 import java.net.URL;
 
 // COMPLETED (8) Implement ForecastAdapterOnClickHandler from the MainActivity
-public class MainActivity extends AppCompatActivity implements ForecastAdapter.ForecastAdapterOnClickHandler {
+public class MainActivity extends AppCompatActivity
+                          implements ForecastAdapterOnClickHandler {
 
     private RecyclerView mRecyclerView;
     private ForecastAdapter mForecastAdapter;
@@ -112,10 +114,10 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapter.F
     // COMPLETE (9) Override ForecastAdapterOnClickHandler's onClick method
     // COMPLETE (10) Show a Toast when an item is clicked, displaying that item's weather data
     @Override
-    public void onItemClick(String data) {
+    public void onItemClick(String weatherData) {
         Toast.makeText(
                 getApplicationContext(),
-                data,
+                weatherData,
                 Toast.LENGTH_SHORT)
         .show();
     }
