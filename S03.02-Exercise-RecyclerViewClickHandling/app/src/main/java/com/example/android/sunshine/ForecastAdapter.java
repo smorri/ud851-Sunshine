@@ -12,6 +12,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @author Samone Morris
+ * @date 03/10/2018
  */
 package com.example.android.sunshine;
 
@@ -26,8 +29,7 @@ import android.widget.TextView;
  * {@link ForecastAdapter} exposes a list of weather forecasts to a
  * {@link android.support.v7.widget.RecyclerView}
  */
-public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapterViewHolder>
-                             implements View.OnClickListener{
+public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapterViewHolder>{
 
     private String[] mWeatherData;
 
@@ -46,7 +48,6 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
     }// end constructor ForecastAdapter(...)
 
     // COMPLETE (5) Implement OnClickListener in the ForecastAdapterViewHolder class
-
     /**
      * Cache of the children views for a forecast list item.
      */
@@ -70,11 +71,6 @@ public class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.Foreca
             String weatherData = mWeatherData[ itemIndex ];
             mClickHandler.onItemClick( weatherData );
         }// end onClick(...)
-    }
-
-    @Override
-    public void onClick(View view) {
-
     }
 
     /**
