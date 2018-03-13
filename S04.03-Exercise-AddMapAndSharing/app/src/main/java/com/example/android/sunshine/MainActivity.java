@@ -222,7 +222,6 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
         }
 
         // TODO (2) Launch the map when the map menu item is clicked
-
         return super.onOptionsItemSelected(item);
     }
 }
