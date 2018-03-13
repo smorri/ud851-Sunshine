@@ -31,6 +31,7 @@
         An error has occurred. Please try again by clicking REFRESH
     </string>
 
+    <string name="button_up">Go Up!</string>
 
     <!-- - - - - - - - - - - - - -->
     <!--Used by SunshineDateUtils-->
