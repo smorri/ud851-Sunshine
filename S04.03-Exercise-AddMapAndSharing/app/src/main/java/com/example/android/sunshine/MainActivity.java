@@ -33,6 +33,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.sunshine.ForecastAdapter.ForecastAdapterOnClickHandler;
 import com.example.android.sunshine.data.SunshinePreferences;
@@ -224,7 +225,31 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
             return true;
         }
 
-        // TODO (2) Launch the map when the map menu item is clicked
+        // COMPLETED (2) Launch the map when the map menu item is clicked
+        if( id == R.id.action_map ){
+            Intent intent = new Intent( Intent.ACTION_VIEW );
+            intent.setData( getMapUri() );
+
+            if( intent.resolveActivity( getPackageManager() ) != null ){
+                startActivity( intent );
+            } else {
+                Toast.makeText( this,
+                                "No application to handle Map action",
+                                Toast.LENGTH_SHORT ).show();
+            }// end if
+
+            return true;
+        }// end if
         return super.onOptionsItemSelected(item);
     }
+
+    private Uri getMapUri(){
+        String location =  "1600 Ampitheatre Parkway, CA";
+
+        return new Uri.Builder()
+                         .scheme( "geo" )
+                         .path( "0,0" )
+                         .query( location )
+                         .build();
+    }// end getMapUri()
 }
