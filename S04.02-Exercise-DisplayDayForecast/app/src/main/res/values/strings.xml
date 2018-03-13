@@ -31,7 +31,9 @@
         An error has occurred. Please try again by clicking REFRESH
     </string>
 
-
+    <string name="title_weather">Weather for the Day</string>
+    <string name="details_none">No Weather Details to Display</string>
+    <string name="button_return">Return</string>
     <!-- - - - - - - - - - - - - -->
     <!--Used by SunshineDateUtils-->
     <!-- - - - - - - - - - - - - -->

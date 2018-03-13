@@ -12,6 +12,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @author Samone Morris
+ * @date   03/13/2018
  */
 package com.example.android.sunshine;
 
@@ -119,7 +122,10 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
         Context context = this;
         Class destinationClass = DetailActivity.class;
         Intent intentToStartDetailActivity = new Intent(context, destinationClass);
-        // TODO (1) Pass the weather to the DetailActivity
+
+        // COMPLETED (1) Pass the weather to the DetailActivity
+        intentToStartDetailActivity.putExtra( Intent.EXTRA_TEXT, weatherForDay );
+
         startActivity(intentToStartDetailActivity);
     }
 

@@ -3,4 +3,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="28sp"
+            android:text="@string/title_weather"/>
+
+        <View
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary" />
+
+        <TextView
+            android:id="@+id/tv_weather_detail"
+            android:layout_marginTop="20dp"
+            android:padding="16dp"
+            android:textStyle="italic"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/details_none"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_return"
+        android:layout_marginBottom="24dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:text="@string/button_return"
+        android:textSize="28sp"
+        android:textAllCaps="false"
+        android:textStyle="bold" />
 </FrameLayout>
