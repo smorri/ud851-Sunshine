@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity
 
     private ProgressBar mLoadingIndicator;
 
-    private final static String KEY_LOCATION = "KEY LOCATION";
     private final static int SUNSHINE_LOADER_ID = 851;
 
     @Override
