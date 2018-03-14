@@ -249,7 +249,7 @@ public class MainActivity extends AppCompatActivity implements ForecastAdapterOn
         return new Uri.Builder()
                          .scheme( "geo" )
                          .path( "0,0" )
-                         .query( location )
+                         .appendQueryParameter( "q", location )
                          .build();
     }// end getMapUri()
 }
