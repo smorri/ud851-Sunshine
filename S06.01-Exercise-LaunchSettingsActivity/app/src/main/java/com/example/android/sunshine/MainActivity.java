@@ -15,6 +15,14 @@
  */
 package com.example.android.sunshine;
 
+/** ------------------------------------------------------------------------------------------------
+ * Main Activity
+ *
+ * @author Samone Morris
+ * @date   03/21/18
+ * -------------------------------------------------------------------------------------------------
+ */
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -346,7 +354,13 @@ public class MainActivity extends AppCompatActivity implements
             return true;
         }
 
-        // TODO (6) Launch SettingsActivity when the Settings option is clicked
+        // COMPLETED (6) Launch SettingsActivity when the Settings option is clicked
+        if( id == R.id.action_settings ){
+            Intent intent = new Intent( this, SettingsActivity.class );
+            startActivity( intent );
+
+            return true;
+        }// end if
 
         return super.onOptionsItemSelected(item);
     }
