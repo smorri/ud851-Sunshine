@@ -15,6 +15,14 @@
  */
 package com.example.android.sunshine;
 
+/**-------------------------------------------------------------------------------------------------
+ * Settings Activity
+ *
+ * @author Samone Morris
+ * @date   03/21/18
+ * -------------------------------------------------------------------------------------------------
+ */
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
@@ -30,8 +38,8 @@ public class SettingsActivity extends AppCompatActivity {
         this.setContentView(R.layout.activity_settings);
         this.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // TODO (2) Create an xml resource directory
-        // TODO (3) Add a PreferenceScreen with an EditTextPreference and ListPreference within the newly created xml resource directory
+        // COMPLETED (2) Create an xml resource directory
+        // COMPLETED (3) Add a PreferenceScreen with an EditTextPreference and ListPreference within the newly created xml resource directory
 
         // TODO (4) Create SettingsFragment and extend PreferenceFragmentCompat
 
