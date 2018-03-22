@@ -30,7 +30,7 @@ import android.view.MenuItem;
 /**
  * Loads the SettingsFragment and handles the proper behavior of the up button.
  */
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,15 +40,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         // COMPLETED (2) Create an xml resource directory
         // COMPLETED (3) Add a PreferenceScreen with an EditTextPreference and ListPreference within the newly created xml resource directory
-
-        // Do step 9 within onCreatePreference
-        // TODO (9) Set the preference summary on each preference that isn't a CheckBoxPreference
-
-        // TODO (13) Unregister SettingsFragment (this) as a SharedPreferenceChangedListener in onStop
-
-        // TODO (12) Register SettingsFragment (this) as a SharedPreferenceChangedListener in onStart
-
-        // TODO (11) Override onSharedPreferenceChanged to update non CheckBoxPreferences when they are changed
     }
 
     @Override
