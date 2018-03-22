@@ -8,9 +8,11 @@ package com.example.android.sunshine;
  * -------------------------------------------------------------------------------------------------
  */
 
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 
 // COMPLETED (1) Add new Activity called SettingsActivity using Android Studio wizard
 // COMPLETED (2) Set setDisplayHomeAsUpEnabled to true on the support ActionBar
@@ -25,6 +27,9 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled( true );
+
+        if( actionBar != null ){
+            actionBar.setDisplayHomeAsUpEnabled( true );
+        }// end if
     }// end onCreate(...)
 }
