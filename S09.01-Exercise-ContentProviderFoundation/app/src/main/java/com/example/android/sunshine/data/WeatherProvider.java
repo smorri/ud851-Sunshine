@@ -23,7 +23,6 @@ import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
@@ -44,11 +43,11 @@ public class WeatherProvider extends ContentProvider {
                             CODE_WEATHER_WITH_DATE = 101;
 
 //  COMPLETED (7) Instantiate a static UriMatcher using the buildUriMatcher method
-
+    private static UriMatcher uriMatcher = buildUriMatcher();
     WeatherDbHelper mOpenHelper;
 
 //  COMPLETED (6) Write a method called buildUriMatcher where you match URI's to their numeric ID
-    public UriMatcher buildUriMatcher(){
+    public static UriMatcher buildUriMatcher(){
         final UriMatcher matcher = new UriMatcher( UriMatcher.NO_MATCH );
         final String WILDCARD_NUMERIC = "/#";
 
@@ -96,7 +95,7 @@ public class WeatherProvider extends ContentProvider {
         throw new RuntimeException("Student, you need to implement the bulkInsert mehtod!");
     }
 
-//  TODO (8) Provide an implementation for the query method
+//  COMPLETED (8) Provide an implementation for the query method
     /**
      * Handles query requests from clients. We will use this method in Sunshine to query for all
      * of our weather data as well as to query for the weather on a particular day.
@@ -115,12 +114,46 @@ public class WeatherProvider extends ContentProvider {
     @Override
     public Cursor query(@NonNull Uri uri, String[] projection, String selection,
                         String[] selectionArgs, String sortOrder) {
-        throw new RuntimeException("Student, implement the query method!");
+//      COMPLETED (9) Handle queries on both the weather and weather with date URI
+        Cursor cursor = null;
 
-//      TODO (9) Handle queries on both the weather and weather with date URI
+        switch ( uriMatcher.match( uri ) ){
+            case CODE_WEATHER :
+                cursor = mOpenHelper.getReadableDatabase().query(
+                        WeatherContract.WeatherEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
 
-//      TODO (10) Call setNotificationUri on the cursor and then return the cursor
-    }
+            case CODE_WEATHER_WITH_DATE :
+                String UTCString = uri.getLastPathSegment();
+                String[] selectionArguments = new String[]{UTCString};
+                final String WILDCARD = " = ?";
+
+                cursor = mOpenHelper.getReadableDatabase().query(
+                        WeatherContract.WeatherEntry.TABLE_NAME,
+                        projection,
+                        WeatherContract.WeatherEntry.COLUMN_DATE + WILDCARD,
+                        selectionArguments,
+                        null,
+                        null,
+                        sortOrder);
+
+                break;
+
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }// end switch;
+
+//      COMPLETED (10) Call setNotificationUri on the cursor and then return the cursor
+        cursor.setNotificationUri(getContext().getContentResolver(), uri);
+
+        return cursor;
+    }// end query(...)
 
     /**
      * Deletes data at a given URI with optional arguments for more fine tuned deletions.
