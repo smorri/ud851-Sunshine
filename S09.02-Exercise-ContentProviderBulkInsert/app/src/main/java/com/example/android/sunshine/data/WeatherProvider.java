@@ -12,16 +12,25 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
+ * @author Samone Morris
+ * @date   04/11/18
  */
 package com.example.android.sunshine.data;
 
 import android.annotation.TargetApi;
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+
+import com.example.android.sunshine.data.WeatherContract.WeatherEntry;
+import com.example.android.sunshine.utilities.SunshineDateUtils;
 
 /**
  * This class serves as the ContentProvider for all of Sunshine's data. This class allows us to
@@ -122,7 +131,7 @@ public class WeatherProvider extends ContentProvider {
         return true;
     }
 
-//  TODO (1) Implement the bulkInsert method
+//  COMPLETED (1) Implement the bulkInsert method
     /**
      * Handles requests to insert a set of new rows. In Sunshine, we are only going to be
      * inserting multiple rows of data at a time from a weather forecast. There is no use case
@@ -138,14 +147,59 @@ public class WeatherProvider extends ContentProvider {
      */
     @Override
     public int bulkInsert(@NonNull Uri uri, @NonNull ContentValues[] values) {
-        throw new RuntimeException("Student, you need to implement the bulkInsert method!");
+            final SQLiteDatabase db = mOpenHelper.getWritableDatabase();
 
-//          TODO (2) Only perform our implementation of bulkInsert if the URI matches the CODE_WEATHER code
+            int match_code = sUriMatcher.match( uri );
 
-//              TODO (3) Return the number of rows inserted from our implementation of bulkInsert
+            switch ( match_code ){
+    //          COMPLETED (2) Only perform our implementation of bulkInsert if the URI matches the CODE_WEATHER code
+                case CODE_WEATHER:
+                    db.beginTransaction();
 
-//          TODO (4) If the URI does match match CODE_WEATHER, return the super implementation of bulkInsert
-    }
+                    int totalCount = 0,
+                        i,
+                        length = values.length;
+
+                    try {
+                        for( i = 0; i < length; i++ ){
+                            ContentValues value = values[ i ];
+
+                            // Retrieve the date and ensure it is normalized
+                            long date =
+                                    value.getAsLong( WeatherEntry.COLUMN_DATE );
+                            if( !SunshineDateUtils.isDateNormalized( date ) ){
+                                throw new IllegalArgumentException("Date must be normalized!");
+                            }// end if
+
+                            long result = db.insert(
+                                    WeatherEntry.TABLE_NAME,
+                                    null,
+                                    value
+                            );
+
+                            if( result > 0 ){ totalCount++; }
+                        }// end for(...)
+
+                        db.setTransactionSuccessful();
+                    } finally {
+                        // We get here once all of the items have been added to the database
+                        db.endTransaction();
+                    }// end try / finally
+
+                    // COMPLETED (3) Return the number of rows inserted from our implementation of bulkInsert
+                    if( totalCount > 0 ){
+                        Context context = getContext();
+                        ContentResolver resolver = context.getContentResolver();
+                        resolver.notifyChange( uri, null );
+
+                        return totalCount;
+                    }// end if
+
+                default:
+                    // COMPLETED (4) If the URI does match match CODE_WEATHER, return the super implementation of bulkInsert
+                    return super.bulkInsert( uri, values );
+            }// end switch
+    }// end
 
     /**
      * Handles query requests from clients. We will use this method in Sunshine to query for all
@@ -206,7 +260,7 @@ public class WeatherProvider extends ContentProvider {
 
                 cursor = mOpenHelper.getReadableDatabase().query(
                         /* Table we are going to query */
-                        WeatherContract.WeatherEntry.TABLE_NAME,
+                        WeatherEntry.TABLE_NAME,
                         /*
                          * A projection designates the columns we want returned in our Cursor.
                          * Passing null will return all columns of data within the Cursor.
@@ -223,7 +277,7 @@ public class WeatherProvider extends ContentProvider {
                          * within the selectionArguments array will be inserted into the
                          * selection statement by SQLite under the hood.
                          */
-                        WeatherContract.WeatherEntry.COLUMN_DATE + " = ? ",
+                        WeatherEntry.COLUMN_DATE + " = ? ",
                         selectionArguments,
                         null,
                         null,
@@ -245,7 +299,7 @@ public class WeatherProvider extends ContentProvider {
              */
             case CODE_WEATHER: {
                 cursor = mOpenHelper.getReadableDatabase().query(
-                        WeatherContract.WeatherEntry.TABLE_NAME,
+                        WeatherEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
