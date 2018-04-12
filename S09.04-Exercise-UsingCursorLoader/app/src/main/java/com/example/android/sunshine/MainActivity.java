@@ -57,7 +57,11 @@ public class MainActivity extends AppCompatActivity implements
 
 //  TODO (16) Create a String array containing the names of the desired data columns from our ContentProvider
 
-//  TODO (17) Create constant int values representing each column name's position above
+//  COMPLETED (17) Create constant int values representing each column name's position above
+    public final static int COL_DATE = 0,
+                            COL_MAXTEMP = 1,
+                            COL_MINTEMP = 2,
+                            COL_CONDITION_ID = 3;
 
 //  TODO (37) Remove the error TextView
     private TextView mErrorMessageDisplay;
@@ -135,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements
          */
         mRecyclerView.setHasFixedSize(true);
 
-//      TODO (4) Pass in this again as the ForecastAdapter now requires a Context
+//      COMPLETED (4) Pass in this again as the ForecastAdapter now requires a Context
         /*
          * The ForecastAdapter is responsible for linking our weather data with the Views that
          * will end up displaying our weather data.
@@ -146,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements
          * MainActivity implements the ForecastAdapter ForecastOnClickHandler interface, "this"
          * is also an instance of that type of handler.
          */
-        mForecastAdapter = new ForecastAdapter(this);
+        mForecastAdapter = new ForecastAdapter(this, this);
 
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
         mRecyclerView.setAdapter(mForecastAdapter);
