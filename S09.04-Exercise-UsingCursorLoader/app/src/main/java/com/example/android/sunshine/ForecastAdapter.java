@@ -32,8 +32,7 @@ import com.example.android.sunshine.utilities.SunshineWeatherUtils;
  */
 class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapterViewHolder> {
 
-    //  TODO (14) Remove the mWeatherData declaration and the setWeatherData method
-    private String[] mWeatherData;
+    //  COMPLETED (14) Remove the mWeatherData declaration and the setWeatherData method
 
     //  COMPLETED (1) Declare a private final Context field called mContext
     private Context mContext;
@@ -145,21 +144,12 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
         return mCursor.getCount();
     }// end getItemCount()
 
-    /**
-     * This method is used to set the weather forecast on a ForecastAdapter if we've already
-     * created one. This is handy when we get new data from the web but don't want to create a
-     * new ForecastAdapter to display it.
-     *
-     * @param weatherData The new weather data to be displayed.
-     */
-    public void setWeatherData(String[] weatherData) {
-        mWeatherData = weatherData;
+//  COMPLETED (11) Create a new method that allows you to swap Cursors.
+    public void swapCursors(final Cursor newCursor){
+        //      COMPLETED (12) After the new Cursor is set, call notifyDataSetChanged
+        mCursor = newCursor;
         notifyDataSetChanged();
-    }
-
-//  TODO (11) Create a new method that allows you to swap Cursors.
-//      TODO (12) After the new Cursor is set, call notifyDataSetChanged
-
+    }// end swapCursor()
     /**
      * A ViewHolder is a required part of the pattern for RecyclerViews. It mostly behaves as
      * a cache of the child views for a forecast item. It's also a convenient place to set an
@@ -181,9 +171,8 @@ class ForecastAdapter extends RecyclerView.Adapter<ForecastAdapter.ForecastAdapt
          */
         @Override
         public void onClick(View v) {
-            //  TODO (13) Instead of passing the String from the data array, use the weatherSummary text!
-            int adapterPosition = getAdapterPosition();
-            String weatherForDay = mWeatherData[adapterPosition];
+            //  COMPLETED (13) Instead of passing the String from the data array, use the weatherSummary text!
+            String weatherForDay = weatherSummary.getText().toString().trim();
             mClickHandler.onClick(weatherForDay);
         }
     }
