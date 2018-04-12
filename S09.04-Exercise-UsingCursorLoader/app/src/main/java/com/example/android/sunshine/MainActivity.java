@@ -39,6 +39,7 @@ import android.widget.TextView;
 
 import com.example.android.sunshine.data.SunshinePreferences;
 import com.example.android.sunshine.data.WeatherContract;
+import com.example.android.sunshine.data.WeatherContract.WeatherEntry;
 import com.example.android.sunshine.utilities.FakeDataUtils;
 import com.example.android.sunshine.utilities.NetworkUtils;
 import com.example.android.sunshine.utilities.OpenWeatherJsonUtils;
@@ -47,15 +48,20 @@ import java.net.URL;
 
 
 public class MainActivity extends AppCompatActivity implements
-//      TODO (15) Remove the implements declaration for SharedPreferences change listener and methods
+//      COMPLETED (15) Remove the implements declaration for SharedPreferences change listener and methods
 //      TODO (20) Implement LoaderCallbacks<Cursor> instead of String[]
         ForecastAdapter.ForecastAdapterOnClickHandler,
-        LoaderManager.LoaderCallbacks<String[]>,
-        SharedPreferences.OnSharedPreferenceChangeListener {
+        LoaderManager.LoaderCallbacks<String[]>{
 
     private final String TAG = MainActivity.class.getSimpleName();
 
-//  TODO (16) Create a String array containing the names of the desired data columns from our ContentProvider
+//  COMPLETED (16) Create a String array containing the names of the desired data columns from our ContentProvider
+    public final static String[] PROJECTION = {
+                WeatherEntry.COLUMN_DATE,       // Date column
+                WeatherEntry.COLUMN_MAX_TEMP,   // Max Temp column
+                WeatherEntry.COLUMN_MIN_TEMP,   // Min Temp column
+                WeatherEntry.COLUMN_WEATHER_ID  // ID column
+    };
 
 //  COMPLETED (17) Create constant int values representing each column name's position above
     public final static int COL_DATE = 0,
@@ -63,8 +69,7 @@ public class MainActivity extends AppCompatActivity implements
                             COL_MINTEMP = 2,
                             COL_CONDITION_ID = 3;
 
-//  TODO (37) Remove the error TextView
-    private TextView mErrorMessageDisplay;
+//  COMPLETED (37) Remove the error TextView
 
     /*
      * This ID will be used to identify the Loader responsible for loading our weather forecast. In
@@ -81,8 +86,7 @@ public class MainActivity extends AppCompatActivity implements
 
     private ProgressBar mLoadingIndicator;
 
-    //  TODO (35) Remove the preference change flag
-    private static boolean PREFERENCES_HAVE_BEEN_UPDATED = false;
+    //  COMPLETED (35) Remove the preference change flag
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +104,7 @@ public class MainActivity extends AppCompatActivity implements
          */
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview_forecast);
 
-//      TODO (36) Remove the findViewById call for the error TextView
-        /* This TextView is used to display errors and will be hidden if there are no errors */
-        mErrorMessageDisplay = (TextView) findViewById(R.id.tv_error_message_display);
+//      COMPLETED (36) Remove the findViewById call for the error TextView
 
         /*
          * The ProgressBar that will indicate to the user that we are loading data. It will be
@@ -155,7 +157,8 @@ public class MainActivity extends AppCompatActivity implements
         /* Setting the adapter attaches it to the RecyclerView in our layout. */
         mRecyclerView.setAdapter(mForecastAdapter);
 
-//      TODO (18) Call the showLoading method
+//      COMPLETED (18) Call the showLoading method
+        showLoading();
 
         /*
          * Ensures a loader is initialized and active. If the loader doesn't already exist, one is
@@ -164,17 +167,7 @@ public class MainActivity extends AppCompatActivity implements
          */
         getSupportLoaderManager().initLoader(ID_FORECAST_LOADER, null, this);
 
-
-
-//      TODO (19) Remove the statement that registers Mainactivity as a preference change listener
-        Log.d(TAG, "onCreate: registering preference changed listener");
-        /*
-         * Register MainActivity as an OnPreferenceChangedListener to receive a callback when a
-         * SharedPreference has changed. Please note that we must unregister MainActivity as an
-         * OnSharedPreferenceChanged listener in onDestroy to avoid any memory leaks.
-         */
-        PreferenceManager.getDefaultSharedPreferences(this)
-                .registerOnSharedPreferenceChangeListener(this);
+//      COMPLETED (19) Remove the statement that registers Mainactivity as a preference change listener
     }
 
     /**
@@ -343,23 +336,13 @@ public class MainActivity extends AppCompatActivity implements
         mRecyclerView.setVisibility(View.VISIBLE);
     }
 
-//  TODO (33) Delete showErrorMessage
-    /**
-     * This method will make the error message visible and hide the weather
-     * View.
-     * <p>
-     * Since it is okay to redundantly set the visibility of a View, we don't
-     * need to check whether each view is currently visible or invisible.
-     */
-    private void showErrorMessage() {
-        /* First, hide the currently visible data */
-        mRecyclerView.setVisibility(View.INVISIBLE);
-        /* Then, show the error */
-        mErrorMessageDisplay.setVisibility(View.VISIBLE);
-    }
+//  COMPLETED (33) Delete showErrorMessage
 
-//  TODO (34) Create a method called showLoading that shows the loading indicator and hides the data
-
+//  COMPLETED (34) Create a method called showLoading that shows the loading indicator and hides the data
+    private void showLoading(){
+        mRecyclerView.setVisibility( View.INVISIBLE );      // Hide the weather data
+        mLoadingIndicator.setVisibility( View.VISIBLE );    // Display loader icon
+    }// end showLoading()
     /**
      * This is where we inflate and set up the menu for this Activity.
      *
@@ -405,18 +388,4 @@ public class MainActivity extends AppCompatActivity implements
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-        /*
-         * Set this flag to true so that when control returns to MainActivity, it can refresh the
-         * data.
-         *
-         * This isn't the ideal solution because there really isn't a need to perform another
-         * GET request just to change the units, but this is the simplest solution that gets the
-         * job done for now. Later in this course, we are going to show you more elegant ways to
-         * handle converting the units from celsius to fahrenheit and back without hitting the
-         * network again by keeping a copy of the data in a manageable format.
-         */
-        PREFERENCES_HAVE_BEEN_UPDATED = true;
-    }
 }
